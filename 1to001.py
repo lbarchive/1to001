@@ -14,24 +14,16 @@ class Error(Exception):
 def get_cfns(ofns):
 
   fns = [RE.findall(fn) for fn in ofns]
-  fn0 = fns[0]
-  nfn0 = len(fns[0])
 
-  # same number of fields
-  if any(nfn0 != len(fn) for fn in fns):
-    raise Error(1, 'different number of fields')
-
-  # find fields contain numbers
-  n_idx = [idx for idx, item in enumerate(fn0) if not item.strip('0123456789')]
-
-  # check if non-number fields have same content
-  if any(fn0[idx] != fn[idx]
-         for fn in fns
-         for idx in range(nfn0) if idx not in n_idx):
-    raise Error(2, 'at least one non-number field does not have same content')
+  # check if filenames have same pattern
+  d = set(tuple(item.strip('0123456789') for item in fn) for fn in fns)
+  if len(d) != 1:
+    raise Error(3, 'different amount of fields and/or '
+                   'at least one non-number field does not have same content')
 
   # find the maximal lengths of number fields
-  n = [(idx, max(len(fn[idx]) for fn in fns)) for idx in n_idx]
+  d = (idx for idx, item in enumerate(d.pop()) if not item)
+  n = [(idx, max(len(fn[idx]) for fn in fns)) for idx in d]
 
   # pad zeros
   cfns = []

@@ -111,7 +111,7 @@ class TestFile(unittest.TestCase):
     with self.assertRaises(m.Error) as e:
       cfns, dfns = m.get_cfns(fns)
 
-    self.assertEqual(e.exception.args[0], 1)
+    self.assertEqual(e.exception.args[0], 3)
 
   def test_content_differ_error(self):
 
@@ -123,7 +123,7 @@ class TestFile(unittest.TestCase):
     with self.assertRaises(m.Error) as e:
       cfns, dfns = m.get_cfns(fns)
 
-    self.assertEqual(e.exception.args[0], 2)
+    self.assertEqual(e.exception.args[0], 3)
 
 
 if __name__ == '__main__':
