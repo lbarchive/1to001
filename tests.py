@@ -15,7 +15,7 @@ class TestFile(unittest.TestCase):
     ]
     expect = []
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_simple(self):
@@ -28,7 +28,7 @@ class TestFile(unittest.TestCase):
       ('1.txt', '01.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_leading_text(self):
@@ -41,7 +41,7 @@ class TestFile(unittest.TestCase):
       ('a1.txt', 'a01.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_tailing_text(self):
@@ -54,7 +54,7 @@ class TestFile(unittest.TestCase):
       ('1b.txt', '01b.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_surrounding_texts(self):
@@ -67,7 +67,7 @@ class TestFile(unittest.TestCase):
       ('a1b.txt', 'a01b.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_more_texts(self):
@@ -80,7 +80,7 @@ class TestFile(unittest.TestCase):
       ('something a1b.txt', 'something a01b.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   def test_2_number_fields(self):
@@ -94,7 +94,7 @@ class TestFile(unittest.TestCase):
       ('a10b 3.txt', 'a10b 03.txt'),
     ]
 
-    cfns, dfns = m.get_cfns(fns)
+    cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
   ##############
@@ -109,7 +109,7 @@ class TestFile(unittest.TestCase):
     ]
 
     with self.assertRaises(m.Error) as e:
-      cfns, dfns = m.get_cfns(fns)
+      cfns = m.get_cfns(fns)
 
     self.assertEqual(e.exception.args[0], 3)
 
@@ -121,7 +121,7 @@ class TestFile(unittest.TestCase):
     ]
 
     with self.assertRaises(m.Error) as e:
-      cfns, dfns = m.get_cfns(fns)
+      cfns = m.get_cfns(fns)
 
     self.assertEqual(e.exception.args[0], 3)
 

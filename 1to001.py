@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from difflib import ndiff
 import os
 import re
 import sys
@@ -27,21 +28,18 @@ def get_cfns(ofns):
 
   # pad zeros
   cfns = []
-  dfns = []
   for fn, ofn in zip(fns, ofns):
-    dfn = fn[:]
     for idx, maxlen in n:
       l = maxlen - len(fn[idx])
       if not l:
         continue
       fn[idx] = '0' * l + fn[idx]
-      dfn[idx] = '\033[1;32m%s\033[0m%s' % ('0' * l, dfn[idx])
 
-    if fn != dfn:
-      cfns.append((ofn, ''.join(fn)))
-      dfns.append(''.join(dfn))
+    nfn = ''.join(fn)
+    if ofn != nfn:
+      cfns.append((ofn, nfn))
 
-  return cfns, dfns
+  return cfns
 
 
 def do_renaming(cfns):
@@ -53,12 +51,11 @@ def do_renaming(cfns):
 
 def main():
 
-  fns = sys.argv[1:]
-  if not fns:
+  if len(sys.argv) == 1:
     return
 
   try:
-    cfns, dfns = get_cfns(fns)
+    cfns = get_cfns(sys.argv[1:])
   except Error as e:
     print('Error %d: %s' % e.args, file=sys.stderr)
     sys.exit(1)
@@ -67,8 +64,9 @@ def main():
     print('nothing to pad zeros')
     return
 
-  for dfn in dfns:
-    print(dfn)
+  for line in ndiff(*zip(*cfns)):
+    if line.startswith(('+', '?')):
+      print(line.strip())
 
   if input('perform padding (y/n)? ') == 'y':
     do_renaming(cfns)
