@@ -19,6 +19,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+#
+# Blog: http://blog.yjl.im/2013/07/padding-numbers-in-filenames.html
+# Gist: https://gist.github.com/livibetter/5930770
 from difflib import ndiff
 import os
 import re
