@@ -21,7 +21,7 @@
 import imp
 import unittest
 
-m = imp.load_source('1to001', '1to001.py')
+m = imp.load_source('1to001', '1to001')
 
 
 class TestFile(unittest.TestCase):
@@ -128,7 +128,7 @@ class TestFile(unittest.TestCase):
     ]
 
     with self.assertRaises(m.Error) as e:
-      cfns = m.get_cfns(fns)
+      m.get_cfns(fns)
 
     self.assertEqual(e.exception.args[0], 3)
 
@@ -140,7 +140,7 @@ class TestFile(unittest.TestCase):
     ]
 
     with self.assertRaises(m.Error) as e:
-      cfns = m.get_cfns(fns)
+      m.get_cfns(fns)
 
     self.assertEqual(e.exception.args[0], 3)
 

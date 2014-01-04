@@ -19,13 +19,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
-# Blog: http://blog.yjl.im/2013/07/padding-numbers-in-filenames.html
-# Gist: https://gist.github.com/livibetter/5930770
-from difflib import ndiff
+
+import argparse
 import os
 import re
 import sys
+from difflib import ndiff
+
+__program__ = '1to001'
+__description__ = 'Padding numbers in filenames automatically'
+__copyright__ = 'Copyright 2013, 2014, Yu Jie Lin'
+__license__ = 'MIT License'
+__version__ = '0.1.0'
+__website__ = 'https://github.com/livibetter/1to001'
+
+__author__ = 'Yu-Jie Lin'
+__author_email__ = 'livibetter@gmail.com'
 
 RE = re.compile('([0-9]+|[^0-9]+)')
 
@@ -74,11 +83,15 @@ def do_renaming(cfns):
 
 def main():
 
-  if len(sys.argv) == 1:
-    return
+  parser = argparse.ArgumentParser(description=__description__)
+  parser.add_argument('-v', '--version', action='version',
+                      version='%(prog)s ' + __version__)
+  parser.add_argument('filenames', metavar='FILENAME', type=str, nargs='+',
+                      help='list of filenames')
+  args = parser.parse_args()
 
   try:
-    cfns = get_cfns(sys.argv[1:])
+    cfns = get_cfns(args.filenames)
   except Error as e:
     print('Error %d: %s' % e.args, file=sys.stderr)
     sys.exit(1)
