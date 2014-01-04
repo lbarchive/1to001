@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Padding numbers in filenames automatically
-# Copyright (C) 2013 by Yu-Jie Lin
+# Copyright (C) 2013, 2014 by Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -87,9 +87,8 @@ def main():
     print('nothing to pad zeros')
     return
 
-  for line in ndiff(*zip(*cfns)):
-    if line.startswith(('+', '?')):
-      print(line.strip())
+  for g in (ndiff((ofn, ), (nfn, )) for ofn, nfn in cfns):
+    print('\n'.join(list(g)[1:]), end='')
 
   if input('perform padding (y/n)? ') == 'y':
     do_renaming(cfns)
