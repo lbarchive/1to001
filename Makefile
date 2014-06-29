@@ -1,4 +1,4 @@
-# Copyright (C) 2013 by Yu-Jie Lin
+# Copyright (C) 2013, 2014 Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ INSTALL_TEST_DIR=/tmp/$(PACKAGE)_install_test
 #   make VENV_PY3_CMD=virtualenv-python3.2 install_test
 VENV_PY3_CMD=virtualenv-python3.3
 
-BUILD_CMD=./setup.py sdist --formats gztar,zip bdist_wininst --plat-name win32
+BUILD_CMD=./setup.py sdist --formats gztar,zip bdist_wheel bdist_wininst --plat-name win32
 
 # ============================================================================
 
@@ -53,6 +53,7 @@ $(VENV_PY3_CMD):
 	rm -rf $(INSTALL_TEST_DIR)
 	$@ $(INSTALL_TEST_DIR)
 	./setup.py sdist --dist-dir $(INSTALL_TEST_DIR)
+	$(INSTALL_TEST_DIR)/bin/pip install wheel
 	$(INSTALL_TEST_DIR)/bin/pip install $(INSTALL_TEST_DIR)/*.tar.gz
 	. $(INSTALL_TEST_DIR)/bin/activate ; type $(SCRIPT)
 	$(INSTALL_TEST_DIR)/bin/$(SCRIPT) --version
