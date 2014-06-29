@@ -40,6 +40,25 @@ Example
   1.txt -> 001.txt
 
 
+Options
+=======
+
+``-i`` (``--ignore-case``)
+  When cases are mixed, this option would ignore the cases, for example for files like::
+
+    read100me1.TXT
+    read5Me02.txt
+
+  They can be renamed to::
+
+    1to001 -i *.{txt,TXT}
+    + read005Me02.txt
+    ?     ++
+    + read100me01.TXT
+    ?          +
+    perform padding (y/n)?
+
+
 More information
 ================
 

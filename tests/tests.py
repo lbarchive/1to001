@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (C) 2013 by Yu-Jie Lin
+# Copyright (C) 2013, 2014 by Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -116,6 +116,27 @@ class TestFile(unittest.TestCase):
     cfns = m.get_cfns(fns)
     self.assertEqual(cfns, expect)
 
+  ###########
+  # Options #
+  ###########
+
+  def test_ignore_case(self):
+
+    config = {
+      'ignore_case': True,
+    }
+    fns = [
+      'a1b 33.TXT',
+      'A10b 3.txt',
+    ]
+    expect = [
+      ('a1b 33.TXT', 'a01b 33.TXT'),
+      ('A10b 3.txt', 'A10b 03.txt'),
+    ]
+
+    cfns = m.get_cfns(fns, config)
+    self.assertEqual(cfns, expect)
+
   ##############
   # Exceptions #
   ##############
@@ -137,6 +158,18 @@ class TestFile(unittest.TestCase):
     fns = [
       '1 a.txt',
       '1 b.txt',
+    ]
+
+    with self.assertRaises(m.Error) as e:
+      m.get_cfns(fns)
+
+    self.assertEqual(e.exception.args[0], 3)
+
+  def test_error_by_cases(self):
+
+    fns = [
+      '1 a.txt',
+      '1 A.txt',
     ]
 
     with self.assertRaises(m.Error) as e:
