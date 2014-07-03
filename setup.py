@@ -26,7 +26,10 @@ import sys
 from distutils.core import Command, setup
 from unittest import TestLoader, TextTestRunner
 
-from wheel.bdist_wheel import bdist_wheel
+try:
+  from wheel.bdist_wheel import bdist_wheel
+except ImportError:
+  bdist_wheel = None
 
 # scripts to be exculded from checking
 EXCLUDE_SCRIPTS = ()
@@ -301,7 +304,6 @@ classifiers = [
 setup_d = dict(
   long_description=long_description,
   cmdclass={
-    'bdist_wheel': bdist_wheel,
     'isort': cmd_isort,
     'pep8': cmd_pep8,
     'pyflakes': cmd_pyflakes,
@@ -312,6 +314,9 @@ setup_d = dict(
   scripts=[script_name],
   **meta
 )
+
+if bdist_wheel:
+  setup_d['cmdclass']['bdist_wheel'] = bdist_wheel
 
 if __name__ == '__main__':
   setup(**setup_d)
