@@ -5,6 +5,11 @@ CHANGES
 Development
 ===========
 
+Version 0.2.1 (2014-07-03T02:08:54Z)
+====================================
+
+* fix requirement of Wheel, now optional
+
 
 Version 0.2.0 (2014-06-29T04:22:43Z)
 ====================================
