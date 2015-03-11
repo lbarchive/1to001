@@ -97,7 +97,8 @@ def main():
   parser = argparse.ArgumentParser(description=__description__)
   parser.add_argument('-v', '--version', action='version',
                       version='%(prog)s ' + __version__)
-  parser.add_argument('-i', '--ignore-case', action='store_true', help='ignore cases')
+  parser.add_argument('-i', '--ignore-case', action='store_true',
+                      help='ignore cases')
   parser.add_argument('filenames', metavar='FILENAME', type=str, nargs='+',
                       help='list of filenames')
   args = parser.parse_args()
