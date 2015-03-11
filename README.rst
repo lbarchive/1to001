@@ -58,6 +58,9 @@ Options
     ?          +
     perform padding (y/n)?
 
+``-y`` (``--yes``)
+  Automatic yes to prompts
+
 
 More information
 ================
@@ -74,6 +77,4 @@ More information
 License
 =======
 
-This project is licensed under the MIT License::
-
-  Copyright (c) 2013, 2014 Yu-Jie Lin
+This project is licensed under the MIT License, see ``COPYING``.

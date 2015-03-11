@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Padding numbers in filenames automatically
-# Copyright (C) 2013, 2014 by Yu-Jie Lin
+# Copyright (C) 2013-2015 by Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ from difflib import ndiff
 
 __program__ = '1to001'
 __description__ = 'Padding numbers in filenames automatically'
-__copyright__ = 'Copyright 2013, 2014, Yu Jie Lin'
+__copyright__ = 'Copyright 2013-2015, Yu Jie Lin'
 __license__ = 'MIT License'
 __version__ = '0.2.1'
 __website__ = 'https://github.com/livibetter/1to001'
@@ -99,6 +99,7 @@ def main():
                       version='%(prog)s ' + __version__)
   parser.add_argument('-i', '--ignore-case', action='store_true',
                       help='ignore cases')
+  parser.add_argument('-y', '--yes', action='store_true', help='automatic yes')
   parser.add_argument('filenames', metavar='FILENAME', type=str, nargs='+',
                       help='list of filenames')
   args = parser.parse_args()
@@ -121,7 +122,7 @@ def main():
   for g in (ndiff((ofn, ), (nfn, )) for ofn, nfn in cfns):
     print('\n'.join(list(g)[1:]), end='')
 
-  if input('perform padding (y/n)? ') == 'y':
+  if args.yes or input('perform padding (y/n)? ') == 'y':
     do_renaming(cfns)
 
 

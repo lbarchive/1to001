@@ -5,6 +5,10 @@ CHANGES
 Development
 ===========
 
+* add ``-y`` (``--yes``) option for automatic yes to prompts
+* add ``COPYING`` license text file
+
+
 Version 0.2.1 (2014-07-03T02:08:54Z)
 ====================================
 
